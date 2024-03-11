@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Board</title>
+  <style>
+    .game-board {
+      display: flex;
+      flex-direction: column; /* Display rows stacked vertically */
+    }
+
+    .board-row {
+      display: -webkit-box; /* Use -webkit-box for displaying rows */
+    }
+
+    .board-cell {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .character {
+      width: 30px;
+      height: 30px;
+      background-color: blue;
+      border-radius: 50%;
+    }
+
+    .enemy {
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .empty {
+      width: 30px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="game-board">
+    <div v-for="(row, rowIndex) in board" :key="rowIndex" class="board-row">
+      <div v-for="(cell, colIndex) in row" :key="colIndex" class="board-cell">
+        <div v-if="cell === 'character'" class="character"></div>
+        <div v-else-if="cell === 'enemy'" class="enemy"></div>
+        <div v-else class="empty"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          board: [
+            ['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+            ['empty', 'character'],
+            ['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+            ['empty', 'enemy', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+            ['empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+            ['empty', 'enemy', 'empty', 'empty', 'empty', 'empty'],
+            ['empty', 'empty', 'empty', 'empty', 'empty'],
+            ['empty', 'empty', 'empty', 'empty', 'empty'],
+            ['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+            ['empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+            ['empty', 'empty', 'empty', 'empty', 'empty']
+          ]
+        };
+      }
+    });
+  </script>
+</body>
+</html>
