@@ -1,0 +1,134 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Game Board</title>
+  <style>
+    .game-board {
+      display: flex;
+      flex-direction: column; /* Display rows stacked vertically */
+    }
+
+    .board-row {
+      display: flex;
+    }
+
+    .board-cell {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .character {
+      background-color: blue;
+      border-radius: 50%;
+      cursor: pointer; /* Change cursor to pointer when hovering over the character */
+    }
+
+    .enemy {
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .boulder {
+      background-color: brown;
+    }
+    
+    .empty {
+      width: 30px;
+      height: 30px;
+    }
+
+    .reachable {
+      background-color: lightgreen;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="game-board">
+    <div>
+      <button @click="regenerateBoard()">REGEN</button> 
+    </div>
+    <div v-for="(row, rowIndex) in board" :key="rowIndex" class="board-row">
+      <div v-for="(cell, colIndex) in row" :key="colIndex" class="board-cell"
+           :class="{ 'character': cell === 'character', 'enemy': cell === 'enemy' && isEnemyVisible(rowIndex, colIndex), 'boulder': cell === 'boulder', 'empty': cell === 'empty', 'reachable': isReachable(rowIndex, colIndex) }"
+           @click="handleCellClick(rowIndex, colIndex)">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          board: this.generateRandomBoard(), // Generate random board
+          characterPosition: { row: 1, col: 1 },
+          walkRadius: 4,
+          isCharacterClicked: false
+        };
+      },
+      methods: {
+        regenerateBoard() {
+          this.board = [];
+          this.board = this.generateRandomBoard();
+        },
+        generateRandomBoard() {
+          const rows = Math.floor(Math.random() * 40) + 5; // Random number of rows (between 5 and 44)
+          const board = [];
+
+          for (let i = 0; i < rows; i++) {
+            const cols = Math.floor(Math.random() * 10) + 5; // Random number of columns (between 5 and 14)
+            const row = [];
+
+            for (let j = 0; j < cols; j++) {
+              const randomCell = Math.random();
+              if (randomCell < 0.05) { 
+                row.push('boulder');
+              } else if (randomCell < 0.07) {
+                row.push('enemy');
+              } else if (randomCell < 0.1 && this.countCharacters(board) < 3) {
+                row.push('character');
+              } else {
+                row.push('empty');
+              }
+            }
+
+            board.push(row);
+          }
+
+          return board;
+        },
+        countCharacters(board) {
+          let count = 0;
+          
+          for (const row of board) {
+            for (const cell of row) {
+              if (cell === 'character') {
+                count++;
+              }
+            }
+          }
+          
+          return count;
+        },
+        isReachable(row, col) {
+          // Function remains the same
+        },
+        isEnemyVisible(row, col) {
+          const characterRow = this.characterPosition.row;
+          const characterCol = this.characterPosition.col;
+          return Math.abs(characterRow - row) <= this.walkRadius && Math.abs(characterCol - col) <= this.walkRadius;
+        },
+        handleCellClick(row, col) {
+          // Function remains the same
+        }
+      }
+    });
+  </script>
+</body>
+</html>
