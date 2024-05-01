@@ -1,1 +1,5 @@
-A Bonus Action is an act you can do that does not cost one full Action, typically performed in conjunction with the use of a related feat or spell (and sometimes a magical item) that calls for the use of a "Bonus Action." This can be used at any point during your turn - at the beginning, middle, or end
+A Bonus Action is an act you can do that does not cost one full Action, typically performed in conjunction with the use of a related feat or spell (and sometimes a magical item) that calls for the use of a "Bonus Action." 
+This can be used at any point during your turn - at the beginning, middle, or end
+
+You cannot use more than one Bonus Action on a single turn, no matter how many feats you have that call for the use of a Bonus Action.
+If you have multiple feats that must use a bonus action to be put into play, you can only use one of those feats per turn.
